@@ -2,6 +2,9 @@
 //retrieve submitted URL from $_POST function
 $ID = $_SERVER["QUERY_STRING"];
 $targetURL;
+
+
+//require "../configure.php";
  
 $servername = "10.16.16.1";
 $username = "bench-hu1-u-109501";
@@ -29,15 +32,18 @@ if ($db_found) {
     while ($row = mysqli_fetch_array($result)) {
         $targetURL = $row["URL"];
     }
+
+    if (strpos($targetURL , "http") === false) {
+        $targetURL = "http://" . $targetURL ;
+    } 
    
-    echo $targetURL;
+    echo "<script>window.location = '$targetURL' </script>";
    
     //close connection to db
     mysqli_close($conn);
    
     
-    //confirm to user
-    print "";
+  
    
     
 } else {
